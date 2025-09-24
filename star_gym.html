@@ -1,0 +1,273 @@
+<!doctype html>
+<html lang="es">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width,initial-scale=1" />
+  <title>STAR GYM - Registro de Usuarios</title>
+  <style>
+    :root{
+      --bg:#0f1724;
+      --card:#0b1220;
+      --accent:#ff6b6b;
+      --muted:#9aa4b2;
+      --glass: rgba(255,255,255,0.04);
+      --success: #34d399;
+    }
+    *{box-sizing:border-box}
+    body{
+      margin:0;
+      font-family:Inter, system-ui, -apple-system, 'Segoe UI', Roboto, 'Helvetica Neue', Arial;
+      background: linear-gradient(180deg,#071029 0%, #0b1220 60%);
+      color:#e6eef6;
+      -webkit-font-smoothing:antialiased;
+      -moz-osx-font-smoothing:grayscale;
+      min-height:100vh;
+      display:flex;
+      align-items:center;
+      justify-content:center;
+      padding:32px;
+    }
+    .container{
+      width:100%;
+      max-width:1100px;
+      display:grid;
+      grid-template-columns: 420px 1fr;
+      gap:28px;
+    }
+    .card{
+      background: linear-gradient(180deg, rgba(255,255,255,0.02), rgba(255,255,255,0.01));
+      border-radius:14px;
+      padding:22px;
+      box-shadow: 0 6px 22px rgba(2,6,23,0.6), inset 0 1px 0 rgba(255,255,255,0.02);
+      border:1px solid rgba(255,255,255,0.03);
+    }
+    .brand{
+      display:flex;gap:12px;align-items:center;margin-bottom:14px
+    }
+    .logo{
+      width:54px;height:54px;border-radius:12px;background:linear-gradient(135deg,var(--accent),#f59e0b);display:flex;align-items:center;justify-content:center;font-weight:700;color:#081426;font-size:18px;box-shadow:0 6px 18px rgba(255,107,107,0.12)
+    }
+    h1{font-size:20px;margin:0}
+    p.lead{color:var(--muted);margin-top:6px;font-size:13px}
+
+    form .field{margin-bottom:12px}
+    label{display:block;font-size:13px;color:var(--muted);margin-bottom:6px}
+    input[type="text"], input[type="password"], select, input[type="number"]{
+      width:100%;padding:12px 14px;border-radius:10px;border:1px solid rgba(255,255,255,0.04);background:var(--glass);color:inherit;font-size:14px;
+      outline:none;transition:all .12s ease;
+    }
+    input:focus, select:focus{transform:translateY(-2px);box-shadow:0 6px 18px rgba(2,6,23,0.5)}
+    .row{display:flex;gap:12px}
+    .small{flex:1}
+
+    .btn{
+      display:inline-flex;align-items:center;gap:10px;padding:10px 14px;border-radius:10px;background:linear-gradient(90deg,var(--accent),#f59e0b);border:none;color:#071426;font-weight:700;cursor:pointer;font-size:14px;box-shadow:0 10px 30px rgba(255,107,107,0.12);
+    }
+    .btn.ghost{background:transparent;border:1px solid rgba(255,255,255,0.05);color:var(--muted);font-weight:600}
+
+    /* right column */
+    .users-head{display:flex;justify-content:space-between;align-items:center;margin-bottom:12px}
+    .users-list{overflow:auto;max-height:520px;padding:8px;border-radius:10px;border:1px dashed rgba(255,255,255,0.03);}
+    table{width:100%;border-collapse:collapse;font-size:14px}
+    th,td{padding:10px 8px;text-align:left;border-bottom:1px solid rgba(255,255,255,0.02)}
+    th{font-size:13px;color:var(--muted)}
+    tr:hover td{background:linear-gradient(90deg, rgba(255,255,255,0.01), transparent)}
+    .chip{display:inline-block;padding:6px 8px;border-radius:999px;background:rgba(255,255,255,0.03);font-weight:700;font-size:12px}
+
+    .empty{color:var(--muted);text-align:center;padding:28px}
+
+    /* small screens */
+    @media (max-width:880px){
+      .container{grid-template-columns:1fr;}
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <div class="card">
+      <div class="brand">
+        <div class="logo">GYM</div>
+        <div>
+          <h1>Registrar usuario</h1>
+          <p class="lead">Agrega nuevos socios: nombre, tiempo de mensualidad y NIP. Los datos se muestran a la derecha.</p>
+        </div>
+      </div>
+
+      <form id="userForm" onsubmit="return false;">
+        <div class="field">
+          <label for="fullName">Nombre completo</label>
+          <input id="fullName" type="text" placeholder="jorge el vurioso" required />
+        </div>
+
+        <div class="field">
+          <label for="username">Nombre de usuario</label>
+          <input id="username" type="text" placeholder="jordi el polla" required />
+        </div>
+
+        <div class="row">
+          <div class="field small">
+            <label for="nip">NIP (4 dígitos)</label>
+            <input id="nip" type="password" inputmode="numeric" pattern="[0-9]{4}" maxlength="4" placeholder="••••" required />
+          </div>
+
+          <div class="field small">
+            <label for="plan">Tiempo de mensualidad</label>
+            <select id="plan">
+              <option value="1">1 mes</option>
+              <option value="3">3 meses</option>
+              <option value="6">6 meses</option>
+              <option value="12">12 meses</option>
+            </select>
+          </div>
+        </div>
+
+        <div style="display:flex;gap:12px;margin-top:8px">
+          <button class="btn" id="addBtn">Agregar usuario</button>
+          <button class="btn ghost" id="clearBtn" type="button">Limpiar formulario</button>
+        </div>
+
+        <p style="margin-top:10px;color:var(--muted);font-size:13px">Nota: este es un prototipo visual — los datos se guardan en tu navegador (localStorage).</p>
+      </form>
+    </div>
+
+    <div class="card">
+      <div class="users-head">
+        <div>
+          <h1 style="font-size:18px;margin:0">Usuarios registrados</h1>
+          <p class="lead" style="margin:4px 0">Lista rápida de los socios añadidos</p>
+        </div>
+        <div>
+          <button class="btn ghost" id="exportBtn" title="Exportar CSV">Exportar CSV</button>
+        </div>
+      </div>
+
+      <div class="users-list" id="usersList">
+        <div class="empty" id="emptyState">No hay usuarios. Agrega uno usando el formulario.</div>
+        <table id="usersTable" style="display:none">
+          <thead>
+            <tr><th>Nombre</th><th>Usuario</th><th>Plan</th><th>Días restantes</th><th>NIP</th><th>Acciones</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+
+    </div>
+  </div>
+
+  <script>
+    const form = document.getElementById('userForm');
+    const addBtn = document.getElementById('addBtn');
+    const clearBtn = document.getElementById('clearBtn');
+    const usersTable = document.getElementById('usersTable');
+    const usersTbody = usersTable.querySelector('tbody');
+    const emptyState = document.getElementById('emptyState');
+    const exportBtn = document.getElementById('exportBtn');
+
+    function loadUsers(){
+      const raw = localStorage.getItem('gym_users');
+      return raw ? JSON.parse(raw) : [];
+    }
+    function saveUsers(arr){
+      localStorage.setItem('gym_users', JSON.stringify(arr));
+    }
+
+    function daysRemaining(endDate){
+      const now = new Date();
+      const end = new Date(endDate);
+      const diff = end - now;
+      return Math.max(0, Math.ceil(diff/(1000*60*60*24)));
+    }
+
+    function render(){
+      const users = loadUsers();
+      usersTbody.innerHTML = '';
+      if(users.length===0){
+        usersTable.style.display='none';
+        emptyState.style.display='block';
+        return;
+      }
+      usersTable.style.display='table';
+      emptyState.style.display='none';
+      users.forEach((u, i)=>{
+        const tr = document.createElement('tr');
+        const nipMasked = '••••';
+        const dias = daysRemaining(u.expiry);
+        tr.innerHTML = `
+          <td>${escapeHtml(u.name)}</td>
+          <td><span class="chip">${escapeHtml(u.username)}</span></td>
+          <td>${escapeHtml(u.planLabel)}</td>
+          <td>${dias} días</td>
+          <td>${nipMasked}</td>
+          <td><button class="btn ghost" onclick="deleteUser(${i})">Eliminar</button></td>
+        `;
+        usersTbody.appendChild(tr);
+      });
+    }
+
+    function escapeHtml(text){
+      return String(text).replace(/[&<>"']/g, function(m){return {
+        '&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":"&#39;"
+      }[m];});
+    }
+
+    addBtn.addEventListener('click', ()=>{
+      const name = document.getElementById('fullName').value.trim();
+      const username = document.getElementById('username').value.trim();
+      const nip = document.getElementById('nip').value.trim();
+      const plan = parseInt(document.getElementById('plan').value);
+      const planLabel = document.getElementById('plan').selectedOptions[0].text;
+
+      if(!name || !username || !nip){
+        alert('Por favor completa todos los campos.');
+        return;
+      }
+      if(!/^\d{4}$/.test(nip)){
+        alert('El NIP debe tener exactamente 4 dígitos.');
+        return;
+      }
+
+      const startDate = new Date();
+      const expiryDate = new Date(startDate);
+      expiryDate.setMonth(expiryDate.getMonth() + plan);
+
+      const users = loadUsers();
+      users.push({name, username, nip, plan, planLabel, created: startDate.toISOString(), expiry: expiryDate.toISOString()});
+      saveUsers(users);
+      form.reset();
+      render();
+    });
+
+    clearBtn.addEventListener('click', ()=>form.reset());
+
+    window.deleteUser = function(index){
+      if(!confirm('¿Eliminar este usuario?')) return;
+      const users = loadUsers();
+      users.splice(index,1);
+      saveUsers(users);
+      render();
+    }
+
+    exportBtn.addEventListener('click', ()=>{
+      const users = loadUsers();
+      if(users.length===0){ alert('No hay usuarios para exportar.'); return; }
+      const headers = ['Nombre','Usuario','Plan','Días restantes','NIP','Creado','Vence'];
+      const rows = users.map(u=>[
+        u.name,
+        u.username,
+        u.planLabel,
+        daysRemaining(u.expiry),
+        u.nip,
+        u.created,
+        u.expiry
+      ]);
+      const csv = [headers, ...rows].map(r=>r.map(cell=>`"${String(cell).replace(/"/g,'""')}"`).join(',')).join('\n');
+      const blob = new Blob([csv], {type:'text/csv;charset=utf-8;'});
+      const url = URL.createObjectURL(blob);
+      const a = document.createElement('a');
+      a.href = url; a.download = 'gym_usuarios.csv'; document.body.appendChild(a); a.click(); a.remove(); URL.revokeObjectURL(url);
+    });
+
+    render();
+  </script>
+</body>
+</html>
