@@ -1,0 +1,85 @@
+
+  form.form-example {
+    display: table;
+  }
+  
+  div.form-example {
+    display: table-row;
+  }
+
+  label,
+  input {
+    display: table-cell;
+    margin-bottom: 10px;
+  }
+    label {
+        padding-right: 10px;
+    
+    }
+    button {
+  background-color: #FFD700; /* color de fondo */
+  color: #000000;            /* color del texto */
+}
+
+
+h1 {
+    color: #520fa4; /* color dorado */
+    text-align: center; /* centrado del texto */
+    font-family: 'Arial', sans-serif; /* fuente */
+    margin-top: 20px; /* margen superior */
+    margin-bottom: 20px; /* margen inferior */
+}       
+input[type="submit"] {
+    background-color: #520fa4; /* color de fondo */
+    color: #ffffff; /* color del texto */
+    border: none; /* sin borde */
+    padding: 10px 20px; /* relleno */
+    text-align: center; /* centrado del texto */
+    text-decoration: none; /* sin subrayado */
+    display: inline-block; /* mostrar en línea */
+    font-size: 16px; /* tamaño de fuente */
+    margin: 4px 2px; /* margen */
+    cursor: pointer; /* cursor de puntero */
+    border-radius: 12px; /* bordes redondeados */
+}
+input[type="text"], input[type="password"] {
+    width: 70%; /* ancho completo */
+    padding: 12px 20px; /* relleno */
+    margin: 8px 0; /* margen */
+    display: inline-block; /* mostrar en línea */
+    border: 1px solid #ccc; /* borde */
+    box-sizing: border-box; /* caja de borde */
+    border-radius: 12px; /* bordes redondeados */
+    background-color: #5e4f71;
+}
+
+input[type="char"], input[type="password"] {
+    width: 60%; /* ancho completo */
+    padding: 12px 20px; /* relleno */
+    margin: 8px 0; /* margen */
+    display: inline-block; /* mostrar en línea */
+    border: 1px solid #ccc; /* borde */
+    box-sizing: border-box; /* caja de borde */
+    border-radius: 12px; /* bordes redondeados */
+    background-color: #5e4f71;
+
+}
+
+input[type="submit "], input[type="button"] {
+    width: 60%; /* ancho completo */
+    padding: 10px 10px; /* relleno */
+    margin: 6px 0; /* margen */
+    display: inline-block; /* mostrar en línea */
+    border: 1px solid #ccc; /* borde */
+    box-sizing: border-box; /* caja de borde */
+    border-radius: 42px; /* bordes redondeados */
+    background-color: hsla(56, 94%, 48%, 0.701);
+    color: #0c0c0ce9; /* color del texto */
+}  
+
+
+
+    body {
+        background-color: #352b57a5; /* color de fondo */
+        font-style:;
+    }
